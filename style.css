@@ -155,3 +155,28 @@ textarea.in{resize:vertical;font:inherit;min-height:90px;line-height:1.45}
 .avw .ub{position:absolute;top:-6px;right:-8px;margin:0;min-width:20px;height:20px;border-radius:10px;font-size:11px;padding:0 6px;background:#ff3b5c;color:#fff;box-shadow:0 0 0 2px var(--card),0 2px 8px rgba(255,59,92,.45);line-height:1}
 .unt{color:#ff3b5c;font-weight:700}
 nav .dot{min-width:18px;text-align:center;box-shadow:0 0 0 2px var(--card)}
+
+/* v2.5 : boutons ronds (play / OK), choix du passage, réponse à un message, messages multi-lignes */
+.rb{width:38px;height:38px;border-radius:50%;display:inline-grid;place-items:center;background:var(--bd);color:var(--tx);flex:none;padding:0;transition:transform .15s,background .15s}
+.rb:active{transform:scale(.9)}.rb .ic{width:18px;height:18px}.rb.ok{background:var(--g);color:#201a08;box-shadow:0 4px 12px rgba(255,157,0,.3)}
+.sheet .btn.sm{display:inline-flex;width:auto;margin:0;padding:7px 14px;font-size:14px;align-items:center;gap:6px;box-shadow:none}.sheet .btn.sm .ic{width:16px;height:16px}
+#nms .ic,.nb .ic{width:13px;height:13px;vertical-align:-2px;display:inline-block}
+.clb{height:34px;border-radius:12px;background:var(--bd);position:relative;overflow:hidden;margin:14px 0 6px}.clb i{position:absolute;top:0;bottom:0;background:var(--g);border-radius:10px}
+.cll{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:2px}.cll b{color:var(--tx)}
+input.rng{width:100%;accent-color:#ffa800;margin:4px 0}
+.b .t{white-space:pre-wrap;overflow-wrap:anywhere}
+.comp{align-items:flex-end}.comp button{margin-bottom:5px}
+.comp textarea.in{flex:1;min-width:0;width:auto;resize:none;height:44px;min-height:44px;max-height:120px;line-height:1.35;padding:10px 14px;background:var(--card);color:var(--tx);border:2px solid var(--bd);border-radius:22px;outline:none;font:inherit;font-size:16px;overflow-y:auto}
+.comp textarea.in:focus{border-color:var(--y)}
+.msgs .b[data-m]{touch-action:pan-y;transition:transform .18s}
+.rq{display:block;border-left:3px solid var(--y);background:rgba(0,0,0,.07);border-radius:8px;padding:4px 8px;margin:0 0 6px;font-size:13px;cursor:pointer;max-width:100%}
+.b.me .rq{background:rgba(0,0,0,.12);border-color:#201a08}.rq b{display:block;font-size:12px}.rq span{display:block;opacity:.8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.b.hl{animation:hlb 1.3s ease}@keyframes hlb{30%{box-shadow:0 0 0 3px var(--y)}}
+.rpb{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 10px;border-left:3px solid var(--y);background:var(--bd);border-radius:12px;margin-top:6px}.rpb[hidden]{display:none}.rpb>div{flex:1;min-width:0}.rpb b{display:block;font-size:12px}.rpb span{display:block;font-size:13px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rpb button{display:grid;place-items:center;margin:0}
+.rxp .ic{width:20px;height:20px}.rxp .rpl{border-left:1px solid var(--bd);border-radius:0 50% 50% 0;margin-left:2px}
+
+/* v2.6 : textarea sans barre de défilement visible, statut en ligne */
+textarea.in,.comp textarea.in{scrollbar-width:none;-ms-overflow-style:none}
+textarea.in::-webkit-scrollbar,.comp textarea.in::-webkit-scrollbar{display:none;width:0;height:0}
+.pr{font-size:12px;color:var(--mut);line-height:1.2;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pr:empty{display:none}
+.pr.on{color:#16a34a;font-weight:600}.pr.on::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;margin-right:5px;vertical-align:1px}

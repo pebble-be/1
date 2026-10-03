@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const IC={home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',compass:'<circle cx=12 cy=12 r=9 /><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',heart:'<path d="M12 20s-8-4.9-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.1-8 11-8 11z"/>',user:'<circle cx=12 cy=8 r=4 /><path d="M4 21a8 8 0 0 1 16 0"/>',sliders:'<path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx=16 cy=7 r=2 /><circle cx=8 cy=17 r=2 />',plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx=11 cy=11 r=7 /><path d="M20 20l-4-4"/>',send:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',mic:'<rect x=9 y=3 width=6 height=11 rx=3 /><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',photo:'<rect x=3 y=4 width=18 height=16 rx=3 /><circle cx=9 cy=10 r=1.5 /><path d="M21 16l-5-5-9 9"/>',smile:'<circle cx=12 cy=12 r=9 /><path d="M8 14a5 5 0 0 0 8 0M9 9.5h.01M15 9.5h.01"/>',sticker:'<path d="M5 4h14a1 1 0 0 1 1 1v9l-6 6H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM20 14h-5a1 1 0 0 0-1 1v5"/>',once:'<circle cx=12 cy=12 r=9 stroke-dasharray="3 3"/><path d="M10.5 9.5L12.5 8v8"/>',bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',repeat:'<path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/>',back:'<path d="M15 5l-7 7 7 7"/>',ban:'<circle cx=12 cy=12 r=9 /><path d="M5.6 5.6l12.8 12.8"/>',flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',out:'<path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/>',mail:'<rect x=3 y=5 width=18 height=14 rx=3 /><path d="M3 7l9 6 9-6"/>',lock:'<rect x=5 y=11 width=14 height=10 rx=2 /><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',at:'<circle cx=12 cy=12 r=4 /><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>',dots:'<path stroke-width=3 d="M5 12h.01M12 12h.01M19 12h.01"/>',music:'<path d="M9 18V5l11-2v13"/><circle cx=6 cy=18 r=3 /><circle cx=17 cy=16 r=3 />',check:'<path d="M5 12l5 5 9-10"/>',person:'<circle cx=12 cy=8 r=4 /><path d="M4 21a8 8 0 0 1 16 0"/>'};
+const IC={home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',compass:'<circle cx=12 cy=12 r=9 /><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',heart:'<path d="M12 20s-8-4.9-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.1-8 11-8 11z"/>',user:'<circle cx=12 cy=8 r=4 /><path d="M4 21a8 8 0 0 1 16 0"/>',sliders:'<path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx=16 cy=7 r=2 /><circle cx=8 cy=17 r=2 />',plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx=11 cy=11 r=7 /><path d="M20 20l-4-4"/>',send:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',mic:'<rect x=9 y=3 width=6 height=11 rx=3 /><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',photo:'<rect x=3 y=4 width=18 height=16 rx=3 /><circle cx=9 cy=10 r=1.5 /><path d="M21 16l-5-5-9 9"/>',smile:'<circle cx=12 cy=12 r=9 /><path d="M8 14a5 5 0 0 0 8 0M9 9.5h.01M15 9.5h.01"/>',sticker:'<path d="M5 4h14a1 1 0 0 1 1 1v9l-6 6H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM20 14h-5a1 1 0 0 0-1 1v5"/>',once:'<circle cx=12 cy=12 r=9 stroke-dasharray="3 3"/><path d="M10.5 9.5L12.5 8v8"/>',bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',repeat:'<path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/>',back:'<path d="M15 5l-7 7 7 7"/>',ban:'<circle cx=12 cy=12 r=9 /><path d="M5.6 5.6l12.8 12.8"/>',flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',out:'<path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/>',mail:'<rect x=3 y=5 width=18 height=14 rx=3 /><path d="M3 7l9 6 9-6"/>',lock:'<rect x=5 y=11 width=14 height=10 rx=2 /><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',at:'<circle cx=12 cy=12 r=4 /><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>',dots:'<path stroke-width=3 d="M5 12h.01M12 12h.01M19 12h.01"/>',music:'<path d="M9 18V5l11-2v13"/><circle cx=6 cy=18 r=3 /><circle cx=17 cy=16 r=3 />',check:'<path d="M5 12l5 5 9-10"/>',play:'<path d="M8 5v14l11-7z"/>',pause:'<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>',reply:'<path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 6 6v3"/>',person:'<circle cx=12 cy=8 r=4 /><path d="M4 21a8 8 0 0 1 16 0"/>'};
 document.body.insertAdjacentHTML('afterbegin','<svg width=0 height=0 style=position:absolute>'+Object.entries(IC).map(([k,v])=>`<symbol id=i-${k} viewBox="0 0 24 24">${v}</symbol>`).join('')+'</svg>');
 const ic=(n,c='')=>`<svg class="ic ${c}"><use href="#i-${n}"/></svg>`;
 const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0),0)%360;
@@ -56,17 +56,22 @@ async function initPush(){if(typeof FCM_VAPID=='undefined'||!FCM_VAPID||!('servi
   const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;
   const t=await firebase.messaging().getToken({vapidKey:FCM_VAPID,serviceWorkerRegistration:reg});
   if(t&&localStorage.pbtk!=t+ME.uid){await db.doc(`users/${ME.uid}/tokens/${t}`).set({t:TS(),ua:navigator.userAgent.slice(0,120)});localStorage.pbtk=t;localStorage.pbtu=ME.uid}}catch(e){}}
-function shellData(page){let nN=0,nM=0;const T0=document.title,tt=()=>{document.title=(nN+nM?'('+(nN+nM)+') ':'')+T0},bd=(s,n)=>{const b=$(s);if(!b)return;const p=+b.dataset.n||0;b.dataset.n=n;b.textContent=n>99?'99+':n;b.style.display=n?'inline-block':'none';if(n>p){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}};
+const presence=d=>{d=d||{};const t=d.ls&&d.ls.toMillis?d.ls.toMillis():0;if(!t)return{on:0,txt:'hors ligne'};const age=Date.now()-t;if((d.on===true&&age<130000)||age<10000)return{on:1,txt:'en ligne'};const x=new Date(t),n=new Date(),yd=new Date(n),p=v=>String(v).padStart(2,'0'),dk=y=>y.getFullYear()*400+y.getMonth()*32+y.getDate();yd.setDate(n.getDate()-1);const day=dk(x)==dk(n)?"aujourd'hui":dk(x)==dk(yd)?'hier':'le '+p(x.getDate())+'/'+p(x.getMonth()+1);return{on:0,txt:'hors ligne · vu '+day+' à '+p(x.getHours())+':'+p(x.getMinutes())}};
+console.info('Pebble build 2.6');function shellData(page){let nN=0,nM=0;const T0=document.title,tt=()=>{document.title=(nN+nM?'('+(nN+nM)+') ':'')+T0},bd=(s,n)=>{const b=$(s);if(!b)return;const p=+b.dataset.n||0;b.dataset.n=n;b.textContent=n>99?'99+':n;b.style.display=n?'inline-block':'none';if(n>p){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}};
  askNotif();initPush();
+ {const bt=on=>db.doc('users/'+ME.uid).update({ls:TS(),on}).catch(()=>{}),vis=()=>bt(!document.hidden);vis();setInterval(()=>{if(!document.hidden)bt(true)},60000);document.addEventListener('visibilitychange',vis);addEventListener('pagehide',()=>bt(false))}
  const SK='pbal_'+ME.uid,kn=new Set(JSON.parse(sessionStorage[SK]||'[]')),base=!sessionStorage[SK];
  db.collection(`users/${ME.uid}/notifs`).where('seen','==',false).onSnapshot(s=>{
   const ok=n=>(ME.notif||{})[NK[n.type]]!==0&&!(ME.blocked||[]).includes(n.from),L=s.docs.map(d=>({id:d.id,ref:d.ref,...d.data()})).filter(ok),Nt=L.filter(n=>n.type!='message');
+  {const MN={};s.docs.forEach(d=>{const n=d.data();if(n.type=='message')MN[n.from]=(MN[n.from]||0)+1});window.PBN=MN;calcM()}
   nN=Nt.length;bd('#nb',nN);tt();
   const ms=n=>n.t&&n.t.toMillis?n.t.toMillis():0,fresh=L.filter(n=>!kn.has(n.id));
   fresh.forEach(n=>kn.add(n.id));sessionStorage[SK]=JSON.stringify([...kn].slice(-300));
   if(!shellData.b&&base){shellData.b=1;return}shellData.b=1;
   fresh.sort((x,y)=>ms(x)-ms(y)).forEach(n=>alertNew(n,page))});
- db.collection('chats').where('members','array-contains',ME.uid).onSnapshot(s=>{nM=s.docs.reduce((t,d)=>{const c=d.data();return t+((ME.blocked||[]).includes((c.members||[]).find(i=>i!=ME.uid))?0:+((c.unread||{})[ME.uid])||0)},0);bd('#mb',nM);tt()});
+ const CX=window.PBX=window.PBX||{},WT=new Set();let CD=[];
+ const calcM=()=>{nM=CD.reduce((t,d)=>{const c=d.data(),o=(c.members||[]).find(i=>i!=ME.uid);return t+((ME.blocked||[]).includes(o)?0:Math.max(+((c.unread||{})[ME.uid])||0,CX[d.id]||0,(window.PBN||{})[o]||0))},0);bd('#mb',nM);tt();dispatchEvent(new Event('pbun'))};
+ db.collection('chats').where('members','array-contains',ME.uid).onSnapshot(s=>{CD=s.docs;CD.forEach(d=>{const o=(d.data().members||[]).find(i=>i!=ME.uid);if(!o||WT.has(d.id))return;WT.add(d.id);db.collection(`chats/${d.id}/messages`).where('from','==',o).where('rd','==',false).limit(99).onSnapshot(q=>{CX[d.id]=q.size;calcM()},()=>{})});calcM()});
  db.doc('config/announcement').onSnapshot(d=>{const n=d.data();$('#an')?.remove();if(n&&n.on&&n.text)document.body.insertAdjacentHTML('afterbegin',`<div id=an style="background:linear-gradient(135deg,#ffd43b,#ff9d00);color:#201a08;padding:8px 14px;text-align:center;font-weight:600;position:sticky;top:0;z-index:9">${esc(n.text)}</div>`)})}
 async function openPost(p){const o=sheet(''),B=o.firstChild;B.classList.add('w');
  const paint=async()=>{const[a,cs]=await Promise.all([gu(p.uid),db.collection(`posts/${p.id}/comments`).orderBy('t').get()]),lk=(p.likes||[]).includes(ME.uid),sv=(ME.saved||[]).includes(p.id),rp=(ME.reposted||[]).includes(p.id);
@@ -92,19 +97,40 @@ const frame=(it,inner='',sel=-1)=>`<div class=sf style="background:#000 url(${it
 const hlNorm=a=>(a||[]).map(h=>h.items?h:{id:'l'+String(h.img||'').slice(-12),title:h.t||'À la une',cover:h.img,items:[{img:h.img,texts:[],music:null,t:null}]});
 const hlAll=()=>hlNorm(ME.highlights),hlSave=async a=>{ME.highlights=a;await db.doc('users/'+ME.uid).update({highlights:a})},slim=it=>({img:it.img,texts:it.texts||[],music:it.music||null,t:it.t||null});
 
-function musicPicker(cb){let au,tm,R=[];const stp=()=>{if(au){au.pause();au=null}};
- const o=sheet('<b>Musique</b><input class=in id=mq placeholder="Titre ou artiste…" style="margin:10px 0"><div id=ml style="max-height:48vh;overflow:auto"></div><p class=mut style=margin-top:8px>Extraits de 30 s · iTunes</p>');
- o.querySelector('#mq').oninput=e=>{clearTimeout(tm);tm=setTimeout(async()=>{const t=e.target.value.trim(),l=o.querySelector('#ml');if(!t)return;l.innerHTML='<p class=mut>Recherche…</p>';
-  try{const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=15&term='+encodeURIComponent(t))).json();R=j.results.filter(x=>x.previewUrl);
-   l.innerHTML=R.map((x,i)=>`<div class="item row"><img src="${x.artworkUrl60}" style="width:46px;height:46px;border-radius:10px"><div class=sp><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.trackName)}</b><span class=mut>${esc(x.artistName)}</span></div><button class="btn g" data-p=${i}>▶</button><button class=btn data-c=${i}>OK</button></div>`).join('')||'<p class=mut>Aucun résultat</p>'}catch(x){l.innerHTML='<p class=mut>Recherche indisponible.</p>'}},350)};
- o.onclick=e=>{const p=e.target.closest('[data-p]'),c=e.target.closest('[data-c]');if(p){stp();au=new Audio(R[+p.dataset.p].previewUrl);au.play().catch(()=>{})}
-  if(c){stp();const x=R[+c.dataset.c];o.remove();cb({title:x.trackName,artist:x.artistName,url:x.previewUrl,art:x.artworkUrl60})}if(e.target==o){stp();o.remove()}}}
+function clipAudio(m,loop){const a=new Audio(m.url),s=+m.start||0,e=+m.end||0;let dn=0;try{a.currentTime=s}catch(x){}a.addEventListener('loadedmetadata',()=>{try{if(a.currentTime<s)a.currentTime=s}catch(x){}});
+ if(e>s)a.addEventListener('timeupdate',()=>{if(a.currentTime>=e&&!dn){if(loop)a.currentTime=s;else{dn=1;a.pause();a.dispatchEvent(new Event('ended'))}}});return a}
+
+function musicPicker(cb,opt={}){const MX=Math.min(30,opt.max||30),fmt=t=>Math.floor(t/60)+':'+String(t%60).padStart(2,'0');let au,tm,R=[],q='',pi=-1;const o=sheet(''),S=o.firstChild;
+ const stp=()=>{if(au){au.pause();au=null}pi=-1;S.querySelectorAll('[data-p]').forEach(b=>b.innerHTML=ic('play','f'))};
+ const row=(x,i)=>`<div class="item row"><img src="${x.artworkUrl60}" style="width:46px;height:46px;border-radius:10px"><div class=sp><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.trackName)}</b><span class=mut>${esc(x.artistName)}</span></div><button class=rb data-p=${i} aria-label=Écouter>${ic('play','f')}</button><button class="rb ok" data-c=${i} aria-label=Choisir>${ic('check')}</button></div>`;
+ const list=()=>{stp();S.innerHTML=`<b>Musique</b><input class=in id=mq placeholder="Titre ou artiste…" value="${esc(q)}" style="margin:10px 0"><div id=ml style="max-height:48vh;overflow:auto">${R.map(row).join('')}</div><p class=mut style=margin-top:8px>Extraits de 30 s · iTunes · tu choisis le passage</p>`;
+  S.querySelector('#mq').oninput=e=>{clearTimeout(tm);tm=setTimeout(async()=>{const t=e.target.value.trim(),l=S.querySelector('#ml');q=t;if(!t||!l)return;l.innerHTML='<p class=mut>Recherche…</p>';
+   try{const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=15&term='+encodeURIComponent(t))).json();R=j.results.filter(x=>x.previewUrl);const l2=S.querySelector('#ml');if(l2)l2.innerHTML=R.map(row).join('')||'<p class=mut>Aucun résultat</p>'}catch(x){const l2=S.querySelector('#ml');if(l2)l2.innerHTML='<p class=mut>Recherche indisponible.</p>'}},350)}};
+ const clip=x=>{stp();let st=0,en=Math.min(MX,15),pv=null,on=0;const L=30;
+  S.innerHTML=`<div class=row><button class=rb id=cb aria-label=Retour>${ic('back')}</button><img src="${x.artworkUrl60}" style="width:46px;height:46px;border-radius:10px"><div class=sp><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.trackName)}</b><span class=mut>${esc(x.artistName)}</span></div></div>
+  <div class=clb><i id=cr></i></div>
+  <div class=cll><span>Début <b id=cs></b></span><span>Fin <b id=ce></b></span></div>
+  <input type=range id=rs min=0 max=${L-3} step=1 value=0 class=rng><input type=range id=re min=3 max=${L} step=1 value=${en} class=rng>
+  <p class=mut id=cn style="margin:6px 0 12px;text-align:center"></p>
+  <div class=row><button class="rb ok" id=cp aria-label=Écouter>${ic('play','f')}</button><button class=btn id=cu style="margin:0">Utiliser ce passage</button></div>`;
+  const g=s=>S.querySelector(s),ui=()=>{g('#rs').value=st;g('#re').value=en;g('#cs').textContent=fmt(st);g('#ce').textContent=fmt(en);g('#cr').style.cssText=`left:${st/L*100}%;width:${(en-st)/L*100}%`;g('#cn').textContent=(en-st)+' s'+(opt.max?' (max '+MX+' s)':'')},
+   stop=()=>{if(pv){pv.pause();pv=null}on=0;const b=g('#cp');if(b)b.innerHTML=ic('play','f')},
+   go=()=>{stop();pv=clipAudio({url:x.previewUrl,start:st,end:en},1);pv.play().catch(()=>{});on=1;g('#cp').innerHTML=ic('pause','f')};
+  g('#rs').oninput=e=>{st=+e.target.value;if(en-st>MX)en=st+MX;if(en-st<3){en=Math.min(L,st+3);st=en-3}ui();if(on)go()};
+  g('#re').oninput=e=>{en=+e.target.value;if(en-st>MX)st=en-MX;if(en-st<3)st=Math.max(0,en-3);ui();if(on)go()};
+  g('#cp').onclick=()=>on?stop():go();g('#cb').onclick=()=>{stop();list()};
+  g('#cu').onclick=()=>{stop();o.remove();cb({title:x.trackName,artist:x.artistName,url:x.previewUrl,art:x.artworkUrl60,start:st,end:en})};
+  new MutationObserver(()=>{if(!o.isConnected)stop()}).observe(document.body,{childList:true});ui()};
+ o.onclick=e=>{if(e.target==o){stp();o.remove();return}const p=e.target.closest('[data-p]'),c=e.target.closest('[data-c]');
+  if(p){const i=+p.dataset.p;if(pi==i){stp();return}stp();pi=i;au=new Audio(R[i].previewUrl);au.onended=stp;au.play().catch(()=>{});p.innerHTML=ic('pause','f')}
+  if(c)clip(R[+c.dataset.c])};
+ list()}
 
 function storyEditor(done){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=async()=>{if(inp.files[0])editor(await compress(inp.files[0],1080),done)};inp.click()}
 function editor(img,done){const T=[];let sel=-1,music=null,au=null;const ov=document.createElement('div');ov.className='ov';ov.style.cssText='overflow-y:auto;place-items:start center';document.body.append(ov);
  const sa=()=>{if(au){au.pause();au=null}},g=id=>ov.querySelector(id);
  const draw=()=>{ov.innerHTML=`<div style="width:100%;max-width:440px;margin:0 auto"><div class=row style=margin-bottom:10px><button id=cx style=color:#fff>${ic('x')}</button><b class=sp style=text-align:center>Nouvelle story</b><button class=btn id=pub>Partager</button></div><div id=fw>${frame({img,texts:T,music},'',sel)}</div>
- <div class=tools><button class="btn g" id=ta>Aa Texte</button><button class="btn g" id=mu>${ic('music')} ${music?'Changer':'Musique'}</button>${music?'<button class="btn g" id=mr>Retirer ♪</button>':''}</div>
+ <div class=tools><button class="btn g" id=ta>Aa Texte</button><button class="btn g" id=mu>${ic('music')} ${music?'Changer':'Musique'}</button>${music?`<button class="btn g" id=mr>${ic('x')} Retirer</button>`:''}</div>
  ${sel>=0?`<div class=tools>${SC.map(c=>`<span class=sw2 data-c=${c} style="background:${c}"></span>`).join('')}<button class="btn g" id=sm1>A−</button><button class="btn g" id=sp1>A+</button><button class="btn r" id=td>${ic('trash')}</button></div>`:''}
  <div class=err id=er style="text-align:center;margin-top:8px"></div><p class=mut style="text-align:center">Glisse le texte pour le déplacer</p></div>`;wire()};
  const wire=()=>{const fr=g('#fw').firstChild;let dr=-1;
@@ -116,7 +142,7 @@ function editor(img,done){const T=[];let sel=-1,music=null,au=null;const ov=docu
   ov.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{T[sel].c=b.dataset.c;draw()});
   const sz=d=>()=>{T[sel].s=Math.min(16,Math.max(4,T[sel].s+d));draw()};
   if(g('#sm1')){g('#sm1').onclick=sz(-1.5);g('#sp1').onclick=sz(1.5);g('#td').onclick=()=>{T.splice(sel,1);sel=-1;draw()}}
-  g('#mu').onclick=()=>musicPicker(m=>{music=m;sa();au=new Audio(m.url);au.play().catch(()=>{});draw()});
+  g('#mu').onclick=()=>musicPicker(m=>{music=m;sa();au=clipAudio(m,1);au.play().catch(()=>{});draw()},{max:15});
   if(g('#mr'))g('#mr').onclick=()=>{music=null;sa();draw()};
   g('#pub').onclick=()=>withLoad(g('#pub'),'Envoi…',async()=>{const url=await up(img);await db.collection('stories').add({uid:ME.uid,img:url,texts:T,music,t:TS()});sa();ov.remove();done&&done()},6e4)};
  draw()}
@@ -145,8 +171,8 @@ function viewStories(items,u,o={}){let i=0,tm,au,t0=0,rem=5e3,ps=0;const D=5e3,o
   q('#m3').onclick=async()=>{m.remove();if(H){await hlSave(hlAll().filter(x=>x.id!=H.id));close();o.onChange&&o.onChange()}else{await db.doc('stories/'+it.id).delete();items.splice(i,1);ps=0;after()}}};
  const show=()=>{clr();ps=0;const it=items[i];
   ov.innerHTML=`<div style=position:relative>${frame(it,`<div class=spb>${items.map((_,k)=>`<i><b style="width:${k<i?100:0}%"></b></i>`).join('')}</div><div class=shd>${av(u,32)}<span style=flex:1>${esc(u.username)} <span style="font-weight:400;opacity:.8">${ago(it.t)}</span></span>${o.own?`<button id=mo style=color:#fff>${ic('dots')}</button>`:''}<button id=cl style=color:#fff>${ic('x')}</button></div><div id=zl style="position:absolute;left:0;top:64px;bottom:0;width:32%"></div><div id=zr style="position:absolute;right:0;top:64px;bottom:0;width:68%"></div>`)}</div>`;
-  if(it.music){au=new Audio(it.music.url);au.volume=.85;au.play().catch(()=>{})}
-  run(D);ov.querySelector('#cl').onclick=close;const mo=ov.querySelector('#mo');if(mo)mo.onclick=menu;
+  if(it.music){au=clipAudio(it.music,1);au.volume=.85;au.play().catch(()=>{})}
+  run(it.music&&it.music.end>it.music.start?Math.max(D,Math.min(15e3,(it.music.end-it.music.start)*1e3)):D);ov.querySelector('#cl').onclick=close;const mo=ov.querySelector('#mo');if(mo)mo.onclick=menu;
   let dn=0,hd;const zd=()=>{dn=Date.now();hd=setTimeout(pause,220)},zu=f=>()=>{clearTimeout(hd);if(Date.now()-dn<220)f();else play()};
   const l=ov.querySelector('#zl'),r=ov.querySelector('#zr');l.onpointerdown=r.onpointerdown=zd;l.onpointerup=zu(prev);r.onpointerup=zu(next);l.onpointercancel=r.onpointercancel=()=>{clearTimeout(hd);play()}};
  document.body.append(ov);show()}
