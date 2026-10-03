@@ -10,3 +10,6 @@ async function up(file){if(CLD.cloud.startsWith('YOUR')||CLD.preset.startsWith('
 
 // (Optionnel) Push même site fermé : Console > Project settings > Cloud Messaging > Web Push certificates > Generate key pair, colle la clé publique ici. Voir README.
 const FCM_VAPID="";
+
+// (Optionnel) Musique complète : clé API Audius gratuite (api.audius.co/plans) pour de meilleures limites. Peut rester vide.
+const AUDIUS_KEY="";
