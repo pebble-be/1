@@ -32,3 +32,6 @@ rules_version='2';service cloud.firestore{match /databases/{d}/documents{
 2. Settings → Upload → Upload presets → Add upload preset → **Signing mode : Unsigned**, Folder `pebble`, limite de taille (ex. 10 MB), formats autorisés (jpg, png, webp, gif, webm, mp4, m4a, mp3).
 3. Dans **fb.js** remplis `CLD={cloud:"...",preset:"..."}`. Ne mets JAMAIS ton API Secret dans le site.
 Firestore ne garde que l'URL de l'image (plus de base64).
+
+## Stories & Highlights
+Stories : texte déplaçable (couleur/taille), musique (extraits 30 s via l'API publique iTunes, sans clé), 24 h, supprimables. Les stories restent en archive (collection `stories`) pour créer des Highlights (profil → Nouveau). Aucune règle supplémentaire nécessaire.
