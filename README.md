@@ -9,6 +9,7 @@ rules_version='2';service cloud.firestore{match /databases/{d}/documents{
  match /admins/{a}{allow read:if auth()&&request.auth.uid==a}
  match /usernames/{u}{allow read:if true;allow create:if auth()&&request.resource.data.uid==request.auth.uid;allow delete:if auth()&&resource.data.uid==request.auth.uid}
  match /users/{id}{allow read:if auth();allow create:if request.auth.uid==id;
+  match /tokens/{t}{allow read,write:if request.auth.uid==id}
   allow update:if (request.auth.uid==id&&!request.resource.data.diff(resource.data).affectedKeys().hasAny(['banned','verified']))||(admin()&&request.resource.data.diff(resource.data).affectedKeys().hasOnly(['banned','verified']));
   match /following/{o}{allow read:if auth();allow write:if request.auth.uid==id}
   match /followers/{f}{allow read:if auth();allow write:if request.auth.uid==f}
@@ -35,3 +36,10 @@ Firestore ne garde que l'URL de l'image (plus de base64).
 
 ## Stories & Highlights
 Stories : texte déplaçable (couleur/taille), musique (extraits 30 s via l'API publique iTunes, sans clé), 24 h, supprimables. Les stories restent en archive (collection `stories`) pour créer des Highlights (profil → Nouveau). Aucune règle supplémentaire nécessaire.
+
+## Messagerie v2 : non-lus, réactions, saisie, alertes
+- **Non-lus** : compteur par conversation (`chats/{id}.unread.{uid}`), remis à 0 à l'ouverture du chat. Badge sur l'icône Messages = somme réelle. Aucune règle supplémentaire.
+- **Réactions** ❤️ 😂 👍 : appui long (mobile), double-clic ou clic droit (PC) sur un message. Une seule par personne (champ `rx.{uid}` du message) ; re-toucher la même la retire.
+- **Saisie** : champ `typing.{uid}` du chat, rafraîchi toutes les 2,5 s pendant la frappe, remis à 0 à l'envoi.
+- **Alertes** : île dynamique si le site est ouvert, notification système si l'onglet est en arrière-plan. Permission : lue depuis le navigateur ; la bannière n'apparaît que si l'état est « default », au plus 1 fois par semaine ; état réel visible dans Paramètres.
+- **Push site fermé (optionnel)** : (1) plan Blaze ; (2) Console → Project settings → Cloud Messaging → Web Push certificates → *Generate key pair*, colle la clé dans `FCM_VAPID` (fb.js) ; (3) ajoute la règle `tokens` ci-dessus ; (4) `firebase.json` : `{"functions":{"source":"functions"}}` puis `cd functions && npm i && cd .. && firebase deploy --only functions`.

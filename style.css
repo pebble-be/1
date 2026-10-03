@@ -113,4 +113,45 @@ footer{flex:none;text-align:center;color:var(--mut);font-size:12px;padding:18px 
 
 textarea.in{resize:vertical;font:inherit;min-height:90px;line-height:1.45}
 
-.nb .ic{width:12px;height:12px;vertical-align:-1px}
+/* v1.8 alerts */
+.toast{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translate(-50%,-140%);z-index:99;display:flex;align-items:center;gap:10px;max-width:min(92vw,420px);padding:10px 14px;border-radius:18px;background:var(--card);color:var(--tx);border:1px solid var(--bd);box-shadow:var(--sh);text-decoration:none;transition:transform .35s cubic-bezier(.2,.9,.2,1)}.toast.on{transform:translate(-50%,0)}
+/* v1.9 chat : liens, vu, images */
+.lk{color:#0757d6;text-decoration:underline;word-break:break-all}.b.me .lk{color:#0646b0}
+@media(prefers-color-scheme:dark){.lk{color:#6cb2ff}.b.me .lk{color:#a8d1ff}}
+.b img{cursor:zoom-in}
+.vu{font-size:12px;text-align:right;color:var(--mut);padding:2px 8px 0}.vu.on{color:#0a84ff;font-weight:600}
+.item.unr{background:var(--bd);border-radius:14px;padding:10px}
+.nwd{display:flex;align-items:center;gap:8px;align-self:stretch;color:#0a84ff;font-size:12px;font-weight:700;margin:10px 0}.nwd:before,.nwd:after{content:'';flex:1;height:1px;background:currentColor;opacity:.35}
+
+/* v2.0 : Dynamic Island, badge non-lus, réactions, saisie */
+.isls{position:fixed;left:50%;transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:max-content;max-width:92vw}
+#isls{top:calc(8px + env(safe-area-inset-top))}#isls2{top:calc(66px + env(safe-area-inset-top));z-index:9}
+.isl{pointer-events:auto;display:flex;align-items:center;gap:10px;background:#000;color:#fff;border-radius:28px;padding:7px 16px 7px 7px;min-width:132px;max-width:min(92vw,390px);box-shadow:0 12px 32px rgba(0,0,0,.38);text-decoration:none;transform:scale(.35,.6);opacity:0;transform-origin:50% 0;transition:transform .5s cubic-bezier(.2,1.25,.3,1),opacity .25s}
+.isl.on{transform:none;opacity:1}.isl.bump{animation:ibump .38s cubic-bezier(.2,1.4,.3,1)}
+@keyframes ibump{40%{transform:scale(1.07,1.04)}}
+.isl .av{box-shadow:none}.isl .ia{display:grid;place-items:center;flex:none}.isl .ib{width:34px;height:34px;border-radius:50%;background:var(--y);color:#201a08;display:grid;place-items:center}
+.isl .it{display:flex;flex-direction:column;min-width:0;line-height:1.25}.isl .it b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.isl .it>span{font-size:12px;opacity:.82;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:3px 0;margin:-3px 0}
+.isl button.ibtn{background:var(--y);color:#201a08;border-radius:14px;padding:6px 12px;font-weight:700;font-size:13px;margin-left:6px}.isl button.ix{color:#fff;opacity:.55;padding:4px 2px}
+.td{display:inline-flex;gap:3px;margin-left:6px;vertical-align:middle}.td i{width:5px;height:5px;border-radius:50%;background:var(--y);animation:tdw 1.2s infinite ease-in-out}.td i:nth-child(2){animation-delay:.15s}.td i:nth-child(3){animation-delay:.3s}
+@keyframes tdw{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-3px);opacity:1}}
+.tyl{color:#0a84ff;font-weight:700}
+.ub{min-width:22px;height:22px;border-radius:11px;background:var(--g);color:#201a08;font-weight:800;font-size:12px;display:inline-grid;place-items:center;padding:0 7px;margin-left:8px;box-shadow:0 2px 8px rgba(255,157,0,.4)}
+.ub.pop,.dot.pop{animation:ubpop .55s cubic-bezier(.2,1.6,.3,1) both}
+@keyframes ubpop{0%{transform:scale(.2);opacity:0}60%{opacity:1}}
+.nwd{display:flex;align-items:center;gap:10px;align-self:stretch;margin:12px 0;color:#201a08;font-size:12px;font-weight:800;animation:nwin .5s cubic-bezier(.2,1.2,.3,1) both}
+.nwd:before,.nwd:after{content:'';flex:1;height:1px;background:var(--bd);opacity:1}
+.nwd span{background:var(--g);border-radius:14px;padding:4px 14px;box-shadow:0 2px 8px rgba(255,157,0,.3)}
+@keyframes nwin{from{opacity:0;transform:translateY(8px) scale(.9)}}
+.b[data-m]{-webkit-touch-callout:none}.b.hrx{position:relative;margin-bottom:13px}
+.rxs{position:absolute;bottom:-13px;right:10px;display:flex;gap:3px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:13px;padding:1px 7px;font-size:14px;line-height:1.45;box-shadow:0 3px 10px rgba(0,0,0,.14);color:var(--tx);animation:rpop .38s cubic-bezier(.2,1.7,.3,1) both}
+.b:not(.me) .rxs{right:auto;left:10px}.rxs.mine{border-color:var(--y)}.rxs small{font-size:11px;font-weight:700;opacity:.7}
+@keyframes rpop{from{transform:scale(.3);opacity:0}}
+.rxp{position:fixed;z-index:60;display:flex;gap:2px;padding:5px 7px;background:var(--card);border:1px solid var(--bd);border-radius:26px;box-shadow:0 12px 34px rgba(0,0,0,.25);transform:scale(.6) translateY(8px);opacity:0;transform-origin:50% 100%;transition:transform .32s cubic-bezier(.2,1.5,.3,1),opacity .15s}
+.rxp.on{transform:none;opacity:1}.rxp button{font-size:26px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:transform .18s cubic-bezier(.2,1.6,.3,1),background .15s}
+.rxp button:hover,.rxp button:active{transform:scale(1.28)}.rxp button.on{background:var(--bd)}
+/* v2.2 : badge de non-lus sur l'avatar (style WhatsApp) + badge Messages plus visible */
+.avw{position:relative;flex:none;display:inline-block;line-height:0}
+.avw .ub{position:absolute;top:-6px;right:-8px;margin:0;min-width:20px;height:20px;border-radius:10px;font-size:11px;padding:0 6px;background:#ff3b5c;color:#fff;box-shadow:0 0 0 2px var(--card),0 2px 8px rgba(255,59,92,.45);line-height:1}
+.unt{color:#ff3b5c;font-weight:700}
+nav .dot{min-width:18px;text-align:center;box-shadow:0 0 0 2px var(--card)}

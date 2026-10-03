@@ -7,3 +7,6 @@ const compress=(f,m=900)=>new Promise(r=>{const i=new Image();i.onload=()=>{cons
 // 2) Cloudinary : Dashboard > cloud name ; Settings > Upload > Upload presets > Add (Signing mode = Unsigned)
 const CLD={cloud:"tq7hukef",preset:"pebble_unsigned"};
 async function up(file){if(CLD.cloud.startsWith('YOUR')||CLD.preset.startsWith('YOUR'))throw Error('Cloudinary : il manque le upload preset (unsigned) dans fb.js → CLD.preset.');const f=new FormData();f.append('file',file);f.append('upload_preset',CLD.preset);const r=await fetch(`https://api.cloudinary.com/v1_1/${CLD.cloud}/auto/upload`,{method:'POST',body:f}),j=await r.json();if(!r.ok)throw Error('Cloudinary : '+(j.error?.message||r.status));return j.resource_type=='image'?j.secure_url.replace('/upload/','/upload/f_auto,q_auto/'):j.secure_url}
+
+// (Optionnel) Push même site fermé : Console > Project settings > Cloud Messaging > Web Push certificates > Generate key pair, colle la clé publique ici. Voir README.
+const FCM_VAPID="";

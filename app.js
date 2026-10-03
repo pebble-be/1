@@ -6,28 +6,73 @@ const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0),0)%360;
 const av=(x,z=46)=>{const h=hue(x.username||'a');return`<div class=av style="width:${z}px;height:${z}px;font-size:${z/2.3}px;background:${x.photo?`url(${x.photo}) center/cover`:`linear-gradient(135deg,hsl(${h} 90% 62%),hsl(${(h+40)%360} 90% 50%))`}">${x.photo?'':esc((x.name||x.username||'?')[0].toUpperCase())}</div>`};
 const ago=t=>{if(!t||!t.toMillis)return'';const s=(Date.now()-t.toMillis())/1000;return s<60?"à l'instant":s<3600?(s/60|0)+' min':s<86400?(s/3600|0)+' h':(s/86400|0)+' j'};
 function sheet(h){const o=document.createElement('div');o.className='ov';o.innerHTML=`<div class=sheet>${h}</div>`;o.onclick=e=>{if(e.target===o)o.remove()};document.body.append(o);return o}
+const URLRE=/\b(?:https?:\/\/|www\.)[^\s<>"]*[^\s<>".,;:!?)'\]]/gi;
+const lnk=s=>{s=String(s??'');let o='',i=0,m;URLRE.lastIndex=0;while((m=URLRE.exec(s))){const u=m[0];o+=esc(s.slice(i,m.index))+`<a class=lk href="${esc(/^www/i.test(u)?'https://'+u:u)}" target=_blank rel="noopener noreferrer">${esc(u)}</a>`;i=m.index+u.length}return o+esc(s.slice(i))};
+function lightbox(src){const o=document.createElement('div');o.className='ov';o.innerHTML=`<div style="text-align:center"><img src="${esc(src)}" style="max-width:94vw;max-height:78vh;border-radius:16px;display:block;margin:0 auto"><p style=margin:12px><a href="${esc(src)}" target=_blank rel=noopener style="color:#fff;font-weight:600">Ouvrir l'image ↗</a></p><button class=btn>Fermer</button></div>`;o.onclick=e=>{if(!e.target.closest('a'))o.remove()};document.body.append(o)}
 let ME;const UC={};
 const gu=async id=>UC[id]||(UC[id]={uid:id,...(await db.doc('users/'+id).get()).data()});
 const byName=async n=>{const s=await db.doc('usernames/'+n).get();return s.exists?gu(s.data().uid):null};
-const notify=(to,type,text)=>to==ME.uid?0:db.collection(`users/${to}/notifs`).add({type,from:ME.uid,fu:ME.username,text,seen:false,t:TS()});
+const notify=(to,type,text,x)=>to==ME.uid?0:db.collection(`users/${to}/notifs`).add({type,from:ME.uid,fu:ME.username,text,seen:false,t:TS(),...(x||{})});
 async function follow(id){const a=db.doc(`users/${ME.uid}/following/${id}`),on=(await a.get()).exists,b=db.doc(`users/${id}/followers/${ME.uid}`);if(on){await a.delete();await b.delete()}else{await a.set({t:TS()});await b.set({t:TS()});await notify(id,'follow','a commencé à vous suivre')}return!on}
-async function tog(k,id){const has=(ME[k]||[]).includes(id);await db.doc('users/'+ME.uid).update({[k]:has?FV.arrayRemove(id):FV.arrayUnion(id)});ME[k]=has?ME[k].filter(x=>x!=id):[...(ME[k]||[]),id];return!has}
-function boot(page){navUI(page);return new Promise(r=>auth.onAuthStateChanged(async u=>{if(!u||!u.emailVerified){if(u)await auth.signOut();return location.href='login.html'}const d=await db.doc('users/'+u.uid).get();if(!d.exists)return auth.signOut();if(d.data().banned){await auth.signOut();document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;text-align:center;font-family:system-ui;padding:24px"><div><h1>Compte suspendu</h1><p style=margin:10px>Ton compte a été suspendu par l\'équipe Pebble.</p><a href=login.html>Retour</a></div></div>';return}ME={uid:u.uid,...d.data()};UC[u.uid]=ME;shellData();r(ME)}))}
+async function tog(k,id,owner){const has=(ME[k]||[]).includes(id);await db.doc('users/'+ME.uid).update({[k]:has?FV.arrayRemove(id):FV.arrayUnion(id)});ME[k]=has?ME[k].filter(x=>x!=id):[...(ME[k]||[]),id];if(!has&&owner)notify(owner,k=='saved'?'save':'repost',k=='saved'?'a enregistré votre publication':'a republié votre publication');return!has}
+function boot(page){navUI(page);if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});return new Promise(r=>auth.onAuthStateChanged(async u=>{if(!u||!u.emailVerified){if(u)await auth.signOut();return location.href='login.html'}const d=await db.doc('users/'+u.uid).get();if(!d.exists)return auth.signOut();if(d.data().banned){await auth.signOut();document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;text-align:center;font-family:system-ui;padding:24px"><div><h1>Compte suspendu</h1><p style=margin:10px>Ton compte a été suspendu par l\'équipe Pebble.</p><a href=login.html>Retour</a></div></div>';return}ME={uid:u.uid,...d.data()};UC[u.uid]=ME;shellData(page);r(ME)}))}
 function navUI(p){const N=[['index','home','Accueil'],['discover','compass','Découvrir'],['messages','chat','Messages'],['notifications','heart','Notifications'],['profile','user','Profil'],['settings','sliders','Paramètres']];
- document.body.insertAdjacentHTML('afterbegin','<nav><b>Pebble</b>'+N.map(n=>`<a href="${n[0]}.html" class="${n[0]==p?'on':''}">${ic(n[1])}<span>${n[2]}</span>${n[0]=='notifications'?'<span class=dot id=nb style=display:none></span>':''}</a>`).join('')+'</nav>');
+ document.body.insertAdjacentHTML('afterbegin','<nav><b>Pebble</b>'+N.map(n=>`<a href="${n[0]}.html" class="${n[0]==p?'on':''}">${ic(n[1])}<span>${n[2]}</span>${n[0]=='notifications'?'<span class=dot id=nb style=display:none></span>':n[0]=='messages'?'<span class=dot id=mb style=display:none></span>':''}</a>`).join('')+'</nav>');
  document.body.insertAdjacentHTML('beforeend','<footer>© 2026 Mourad Project · Pebble v1.7</footer>');$('main').after($('footer'));
  const v0=$('#v');if(v0&&!v0.innerHTML)v0.innerHTML='<div class=sk></div><div class=sk style=height:240px></div><div class=sk></div>';
  const sr=document.createElement('script');sr.type='speculationrules';sr.textContent=JSON.stringify({prefetch:[{source:'document',where:{selector_matches:'nav a'},eagerness:'moderate'}]});document.head.append(sr);
  if(window.visualViewport)visualViewport.addEventListener('resize',()=>document.body.classList.toggle('kb',visualViewport.height<innerHeight*.75));
 }
-function shellData(){
- db.collection(`users/${ME.uid}/notifs`).where('seen','==',false).onSnapshot(s=>{const b=$('#nb');b.textContent=s.size;b.style.display=s.size?'inline-block':'none'});
+const NK={like:'likes',comment:'comments',follow:'followers',message:'messages'};
+/* ===== Dynamic Island : une seule brique pour alertes, saisie et permissions ===== */
+const ISL={};
+function islx(id){const e=ISL[id];if(!e)return;clearTimeout(e.tm);delete ISL[id];e.el.classList.remove('on');setTimeout(()=>e.el.remove(),420)}
+function island(o){const cid=o.low?'isls2':'isls';let box=document.getElementById(cid);if(!box){box=document.createElement('div');box.id=cid;box.className='isls';document.body.append(box)}
+ const h=`<span class=ia>${o.u?av(o.u,34):`<span class=ib>${ic(o.k||'heart')}</span>`}</span><span class=it><b>${esc(o.t)}</b><span>${o.s||''}</span></span>${o.r||''}`;let e=ISL[o.id];
+ if(e&&e.el.isConnected){e.o=o;e.el.innerHTML=h;e.el.classList.remove('bump');void e.el.offsetWidth;e.el.classList.add('bump')}
+ else{const el=document.createElement(o.url||o.open?'a':'div');el.className='isl';el.innerHTML=h;e=ISL[o.id]={el,o};box.append(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('on')));
+  el.onclick=ev=>{const x=e.o;if(ev.target.closest('button'))return;if(x.open&&window.PBOPEN){ev.preventDefault();window.PBOPEN(x.open);islx(o.id)}}}
+ if(o.url)e.el.href=o.url;clearTimeout(e.tm);if(o.ms)e.tm=setTimeout(()=>islx(o.id),o.ms);return e.el}
+const clearOS=tag=>{try{navigator.serviceWorker&&navigator.serviceWorker.getRegistration().then(r=>r&&r.getNotifications({tag}).then(l=>l.forEach(x=>x.close())))}catch(e){}};
+const NP=()=>'Notification' in window?Notification.permission:'unsupported';
+async function alertNew(n,page){
+ const msg=n.type=='message',url=msg?'messages.html?u='+encodeURIComponent(n.fu):'notifications.html';
+ if(msg&&n.from==window.PBCHAT&&!document.hidden)return;
+ let title='Pebble',body=n.fu+' '+n.text,tag=n.id;
+ if(msg){let c=1;try{const d=await db.doc('chats/'+[ME.uid,n.from].sort().join('_')).get();c=Math.max(1,+(((d.data()||{}).unread||{})[ME.uid])||1)}catch(e){}
+  title=n.fu;body=c==1?'1 nouveau message':c+' nouveaux messages';tag='msg-'+n.from;if(n.from==window.PBCHAT&&!document.hidden)return}
+ if(document.hidden){if(NP()!='granted')return;const o={body:body+(msg&&n.pv?'\n'+n.pv:''),tag,renotify:true,icon:'icon.svg',data:{url}};
+  const fb=()=>{try{new Notification(title,o)}catch(e){}};
+  navigator.serviceWorker?navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification(title,o):fb()).catch(fb):fb()}
+ else{const u=await gu(n.from).catch(()=>null);island({id:msg?'m-'+n.from:n.id,u,k:'heart',t:msg?title:n.fu,s:esc(msg?body:n.text)+(msg&&n.pv?' · '+esc(n.pv):''),url,open:msg?n.from:0,ms:5500})}}
+/* Permission : on lit TOUJOURS l'état réel du navigateur ; la bannière ne s'affiche que si l'état est « default », au plus 1 fois / semaine */
+function askNotif(){if(NP()!='default'||Date.now()-(+localStorage.pbq||0)<6048e5)return;localStorage.pbq=Date.now();
+ island({id:'perm',k:'heart',t:'Activer les alertes',s:'Messages, likes et abonnés en direct',ms:0,r:'<button class=ibtn id=pbY>Activer</button><button class=ix id=pbN>✕</button>'});
+ $('#pbY').onclick=async()=>{islx('perm');try{await Notification.requestPermission()}catch(e){}initPush()};$('#pbN').onclick=()=>islx('perm');
+ try{navigator.permissions.query({name:'notifications'}).then(p=>p.onchange=()=>{if(NP()!='default')islx('perm')})}catch(e){}}
+/* Push réel (site fermé) : optionnel, nécessite FCM_VAPID dans fb.js + la Cloud Function (voir README) */
+async function initPush(){if(typeof FCM_VAPID=='undefined'||!FCM_VAPID||!('serviceWorker' in navigator)||NP()!='granted')return;
+ try{await new Promise((ok,ko)=>{if(window.firebase&&firebase.messaging)return ok();const s=document.createElement('script');s.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js';s.onload=ok;s.onerror=ko;document.head.append(s)});
+  const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;
+  const t=await firebase.messaging().getToken({vapidKey:FCM_VAPID,serviceWorkerRegistration:reg});
+  if(t&&localStorage.pbtk!=t+ME.uid){await db.doc(`users/${ME.uid}/tokens/${t}`).set({t:TS(),ua:navigator.userAgent.slice(0,120)});localStorage.pbtk=t;localStorage.pbtu=ME.uid}}catch(e){}}
+function shellData(page){let nN=0,nM=0;const T0=document.title,tt=()=>{document.title=(nN+nM?'('+(nN+nM)+') ':'')+T0},bd=(s,n)=>{const b=$(s);if(!b)return;const p=+b.dataset.n||0;b.dataset.n=n;b.textContent=n>99?'99+':n;b.style.display=n?'inline-block':'none';if(n>p){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}};
+ askNotif();initPush();
+ const SK='pbal_'+ME.uid,kn=new Set(JSON.parse(sessionStorage[SK]||'[]')),base=!sessionStorage[SK];
+ db.collection(`users/${ME.uid}/notifs`).where('seen','==',false).onSnapshot(s=>{
+  const ok=n=>(ME.notif||{})[NK[n.type]]!==0&&!(ME.blocked||[]).includes(n.from),L=s.docs.map(d=>({id:d.id,ref:d.ref,...d.data()})).filter(ok),Nt=L.filter(n=>n.type!='message');
+  nN=Nt.length;bd('#nb',nN);tt();
+  const ms=n=>n.t&&n.t.toMillis?n.t.toMillis():0,fresh=L.filter(n=>!kn.has(n.id));
+  fresh.forEach(n=>kn.add(n.id));sessionStorage[SK]=JSON.stringify([...kn].slice(-300));
+  if(!shellData.b&&base){shellData.b=1;return}shellData.b=1;
+  fresh.sort((x,y)=>ms(x)-ms(y)).forEach(n=>alertNew(n,page))});
+ db.collection('chats').where('members','array-contains',ME.uid).onSnapshot(s=>{nM=s.docs.reduce((t,d)=>{const c=d.data();return t+((ME.blocked||[]).includes((c.members||[]).find(i=>i!=ME.uid))?0:+((c.unread||{})[ME.uid])||0)},0);bd('#mb',nM);tt()});
  db.doc('config/announcement').onSnapshot(d=>{const n=d.data();$('#an')?.remove();if(n&&n.on&&n.text)document.body.insertAdjacentHTML('afterbegin',`<div id=an style="background:linear-gradient(135deg,#ffd43b,#ff9d00);color:#201a08;padding:8px 14px;text-align:center;font-weight:600;position:sticky;top:0;z-index:9">${esc(n.text)}</div>`)})}
 async function openPost(p){const o=sheet(''),B=o.firstChild;B.classList.add('w');
  const paint=async()=>{const[a,cs]=await Promise.all([gu(p.uid),db.collection(`posts/${p.id}/comments`).orderBy('t').get()]),lk=(p.likes||[]).includes(ME.uid),sv=(ME.saved||[]).includes(p.id),rp=(ME.reposted||[]).includes(p.id);
   B.innerHTML=`<div class=row>${av(a,38)}<a class=sp href="profile.html?u=${a.username}"><b>${esc(a.username)}</b></a>${p.uid==ME.uid?`<button id=dl>${ic('trash')}</button>`:''}</div><img class=p src="${p.img}"><div class=acts><button id=lk class="${lk?'red':''}">${ic('heart',lk?'f':'')}</button><button id=rp class="${rp?'red':''}">${ic('repeat')}</button><button id=sh>${ic('send')}</button><span class=sp></span><button id=sv>${ic('bookmark',sv?'f':'')}</button></div><b>${(p.likes||[]).length} j'aime</b><p style="margin:6px 0"><b>${esc(a.username)}</b> ${esc(p.cap)}</p>${cs.docs.map(d=>{const c=d.data();return`<p class=mut><b style="color:var(--tx)">${esc(c.username)}</b> ${esc(c.text)}</p>`}).join('')}<div class=row style="margin-top:10px"><input class=in id=cm placeholder="Ajouter un commentaire…"><button class=btn id=cs>${ic('send')}</button></div>`;
   B.querySelector('#lk').onclick=async()=>{await db.doc('posts/'+p.id).update({likes:lk?FV.arrayRemove(ME.uid):FV.arrayUnion(ME.uid)});p.likes=lk?p.likes.filter(x=>x!=ME.uid):[...(p.likes||[]),ME.uid];if(!lk)notify(p.uid,'like','a aimé votre publication');paint()};
-  B.querySelector('#rp').onclick=async()=>{await tog('reposted',p.id);paint()};B.querySelector('#sh').onclick=()=>{o.remove();shareSheet(p)};B.querySelector('#sv').onclick=async()=>{await tog('saved',p.id);paint()};
+  B.querySelector('#rp').onclick=async()=>{await tog('reposted',p.id,p.uid);paint()};B.querySelector('#sh').onclick=()=>{o.remove();shareSheet(p)};B.querySelector('#sv').onclick=async()=>{await tog('saved',p.id,p.uid);paint()};
   if(p.uid==ME.uid)B.querySelector('#dl').onclick=async()=>{await db.doc('posts/'+p.id).delete();o.remove()};
   B.querySelector('#cs').onclick=async()=>{const t=B.querySelector('#cm').value.trim();if(!t)return;await db.collection(`posts/${p.id}/comments`).add({uid:ME.uid,username:ME.username,text:t,t:TS()});notify(p.uid,'comment','a commenté : '+t.slice(0,60));paint()}};paint()}
 function authPage(t,s,b,alt){document.body.innerHTML=`<div class=au><div class=hero><b style="font-size:28px">Pebble</b><div><h1>Partage.<br>Découvre.<br>Connecte-toi.</h1><p class=big style="margin-top:16px;font-size:18px;max-width:380px">Tes photos, tes amis et tes conversations, au même endroit.</p></div><small>© 2026 Mourad Project · Pebble v1.7</small></div><div class=form><div class=box><h2 style="font-size:32px">${t}</h2><p class=mut style="margin-bottom:8px">${s}</p>${b}<p class=mut style="text-align:center;margin-top:18px">${alt}</p></div></div></div>`}
