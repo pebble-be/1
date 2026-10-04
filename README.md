@@ -58,3 +58,18 @@ Sans Realtime Database, l'app marche comme avant (présence Firestore, moins pr�
 - **Supprimer** : appui long (mobile) / double-clic / clic droit (PC) sur n'importe quel message → icône corbeille. « Supprimer pour moi » = champ `del.{uid}` (cache le message de ton côté). « Supprimer pour tous » (tes messages seulement) = `dl:true`, contenu vidé, l'autre voit « Message supprimé ».
 - **Vue unique** : à l'ouverture, l'URL/texte est effacé du document Firestore (`v:''`), seul le destinataire le voit en mémoire. Capture d'écran : détection **au mieux sur PC** (touche Impr écran, Win+Maj+S, Cmd+Maj+3/4/5). Les navigateurs mobiles n'exposent AUCUN événement de capture → impossible à détecter sur téléphone. Quand détecté : notification `screenshot` + île dynamique chez l'expéditeur, mention sous le message.
 - Aucune nouvelle règle Firestore nécessaire. (Option plus stricte : limiter `delete` des messages à `request.auth.uid==resource.data.from` — mais « Supprimer la discussion » devrait alors passer par `del.{uid}`.)
+
+## v3.2 — Messages vocaux corrigés + appels audio
+- **Vocaux** : format choisi selon le navigateur (webm/opus ou mp4), envoyé comme fichier (plus de data-URI avec `codecs=` qui faisait échouer Cloudinary), lecteur maison (lecture/pause, barre, durée), lecture en `.mp3` via Cloudinary pour iPhone avec repli sur l'original, bouton ✕ pour annuler l'enregistrement. Dans ton upload preset Cloudinary, autorise bien : webm, mp4, m4a, mp3.
+- **Appels audio** (WebRTC, bouton téléphone en haut du chat). Signalisation dans Firestore `calls/{id}` (+ sous-collection `ice`). **Ajoute ces règles Firestore** (Publish) :
+```
+ match /calls/{c}{allow create:if request.auth.uid==request.resource.data.from&&request.auth.uid in request.resource.data.members;allow read,update:if request.auth.uid in resource.data.members;
+  match /ice/{i}{allow read,create:if request.auth.uid in get(/databases/$(d)/documents/calls/$(c)).data.members}}
+```
+- ⚠ Ça sonne seulement si Pebble est ouvert (onglet ouvert/arrière-plan) ; site fermé = pas de sonnerie. Les réseaux mobiles/NAT stricts ont souvent besoin d'un serveur **TURN** : ajoute-le dans `ICE_SERVERS` (fb.js), sinon l'appel peut rester sur « Connexion… » puis échouer.
+
+## v3.3 — Journal d'appels + « piip piip »
+- Chaque appel laisse une ligne dans la discussion : « Appel audio · m:ss » (durée), « Appel manqué » / « Appel sans réponse » / « Appel refusé ». Écrit par l'appelant (message `k:'call'`, champs `st` et `d`). Aucune règle supplémentaire.
+- Appel manqué : notification `call` (« t'a appelé · appel manqué ») dans Notifications + île dynamique / notification système, et +1 non-lu dans la conversation.
+- L'appelant entend une tonalité « piip piip » (425 Hz) tant que l'autre n'a pas répondu.
+- Si l'onglet du destinataire est en arrière-plan, notification système « Appel audio entrant » (fermée dès qu'on répond/raccroche).

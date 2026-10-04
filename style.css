@@ -226,3 +226,13 @@ textarea.in::-webkit-scrollbar,.comp textarea.in::-webkit-scrollbar{display:none
 .rxp button[data-d]{color:#ff3b5c}
 .ov.vo1{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}.ov.vo1 img{pointer-events:none;-webkit-user-drag:none}
 .ov.vo1 .vo1s{display:none;color:#fff;font-weight:700}.ov.vo1.hid .vo1b{display:none}.ov.vo1.hid .vo1s{display:block}
+
+/* v3.2 : lecteur vocal + appels audio */
+.vp{display:flex;align-items:center;gap:10px;min-width:210px;max-width:100%}.vpb{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.14);color:inherit;display:grid;place-items:center;flex:none;padding:0}.vpb .ic{width:18px;height:18px}
+.vpt{flex:1;height:6px;border-radius:3px;background:rgba(0,0,0,.18);position:relative;cursor:pointer;touch-action:none}.vpt i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:currentColor}.vpd{font-size:12px;min-width:34px;text-align:right}
+#mx{color:#ff3b5c}
+.callov{position:fixed;inset:0;z-index:120;background:rgba(10,8,0,.95)}.callb{display:flex;flex-direction:column;align-items:center;gap:10px;color:#fff;text-align:center}.cn{font-size:26px}.cs{opacity:.8}
+.cbt{display:flex;gap:44px;margin-top:44px}.cb{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;color:#fff;background:#3a3a3a;padding:0}.cb .ic{width:28px;height:28px}.cb.dec{background:#ff3b30}.cb.dec .ic{transform:rotate(135deg)}.cb.acc{background:#22c55e}.cb.mu.on{background:#fff;color:#000}
+
+/* v3.3 : journal d'appel dans le chat */
+.msgs .b.cl,.msgs .b.me.cl{align-self:center;background:var(--bd);color:var(--tx);display:flex;align-items:center;gap:6px;font-size:13px;border-radius:99px;padding:6px 14px;box-shadow:none}.b.cl .ic{width:16px;height:16px}.msgs .b.cl.ms{color:#ff3b5c}

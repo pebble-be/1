@@ -16,3 +16,7 @@ const FCM_VAPID="";
 const AUDIUS_KEY="";
 
 const rtdb=(()=>{try{return firebase.database()}catch(e){return null}})();
+
+// Appels audio (WebRTC) : STUN gratuit par défaut. Sur certains réseaux mobiles il faut un serveur TURN (ex. metered.ca / Cloudflare Calls, offre gratuite) :
+// ajoute {urls:'turn:...',username:'...',credential:'...'} dans la liste.
+const ICE_SERVERS=[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}];
