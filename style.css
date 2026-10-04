@@ -236,3 +236,24 @@ textarea.in::-webkit-scrollbar,.comp textarea.in::-webkit-scrollbar{display:none
 
 /* v3.3 : journal d'appel dans le chat */
 .msgs .b.cl,.msgs .b.me.cl{align-self:center;background:var(--bd);color:var(--tx);display:flex;align-items:center;gap:6px;font-size:13px;border-radius:99px;padding:6px 14px;box-shadow:none}.b.cl .ic{width:16px;height:16px}.msgs .b.cl.ms{color:#ff3b5c}
+
+/* v3.6 — commentaires : barre large, bouton d'envoi petit, réponses, @mentions */
+.pph{display:flex;align-items:center;gap:14px;margin-bottom:2px}.pph a{text-decoration:none;color:var(--tx);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.cmlist{margin:8px 0 2px}.cmt{padding:5px 0}.cmt.rep{margin-left:30px;padding-left:12px;border-left:2px solid var(--bd)}
+.cmb{font-size:14px;line-height:1.4;word-break:break-word}.cmb>b{cursor:pointer}.cmm{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-top:2px}.cmr{font-size:12px;font-weight:700;color:var(--mut);padding:0;background:none}.cmr:hover{color:var(--tx)}
+a.mn{color:#e08600;font-weight:600;text-decoration:none}
+.cmbar{display:flex;align-items:center;gap:8px;margin-top:10px}.cmbar .in{flex:1;min-width:0;width:auto;padding:11px 16px;border-radius:99px;font-size:16px}
+.sheet .btn.cmsend{width:42px;height:42px;padding:0;margin:0;border-radius:50%;flex:none;display:inline-grid;place-items:center}.cmsend .ic{width:19px;height:19px}
+.cmrp{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bd);border-radius:12px;padding:6px 10px;margin-top:10px;font-size:13px}.cmrp button{padding:2px;display:grid}.cmrp .ic{width:16px;height:16px}
+.mnl{background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-top:6px;overflow:hidden;box-shadow:var(--sh)}.mnl div{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer}.mnl div:hover{background:var(--bd)}.cmrp[hidden],.mnl[hidden]{display:none}
+
+/* v3.7 — photos du chat nettes sans cadre ; story : zoom / déplacement / outils latéraux */
+.b.pic{background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+.b.pic img,.b img{border:0;box-shadow:none}.b.pic img{display:block;width:auto;height:auto;max-width:min(300px,72vw);max-height:60vh;object-fit:contain;border-radius:16px;background:transparent}
+.b.pic img:not(.ld){min-height:140px;min-width:180px;background:var(--bd)}
+.sim{position:absolute;inset:0;transform-origin:center;will-change:transform;pointer-events:none}
+.sbg{position:absolute;inset:-24px;background-size:cover;background-position:center;filter:blur(22px) brightness(.62);pointer-events:none}
+.fw{position:relative;width:fit-content;margin:0 auto}.fw .sf{touch-action:none;cursor:grab}
+.etb{position:absolute;top:12px;right:10px;display:flex;flex-direction:column;gap:10px;z-index:6}
+.eb{width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;flex:none;padding:0}.eb.on{background:var(--y);color:#201a08}.eb .ic{width:22px;height:22px}.eb .aa{font-weight:800;font-size:16px;letter-spacing:-.5px}
+.ebt{position:absolute;left:10px;right:62px;bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:rgba(0,0,0,.5);border-radius:22px;padding:8px 10px;z-index:6}.ebt .eb{width:34px;height:34px;background:rgba(255,255,255,.22)}.ebt .eb .ic{width:18px;height:18px}.ebt .dl{background:#ff3b30}

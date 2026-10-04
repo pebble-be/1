@@ -73,3 +73,11 @@ Sans Realtime Database, l'app marche comme avant (présence Firestore, moins pr�
 - Appel manqué : notification `call` (« t'a appelé · appel manqué ») dans Notifications + île dynamique / notification système, et +1 non-lu dans la conversation.
 - L'appelant entend une tonalité « piip piip » (425 Hz) tant que l'autre n'a pas répondu.
 - Si l'onglet du destinataire est en arrière-plan, notification système « Appel audio entrant » (fermée dès qu'on répond/raccroche).
+
+## Présence « hors ligne en ~5 s » (v3.4)
+Il faut **Realtime Database** : Console → Build → Realtime Database → Create. Règles (onglet Rules → Publish) :
+```
+{"rules":{"presence":{".read":"auth!=null","$uid":{".write":"auth!=null && auth.uid===$uid"}}}}
+```
+Copie l'URL affichée en haut de la page (ex. `https://kivo-3b86b-default-rtdb.europe-west1.firebasedatabase.app` si tu as choisi la Belgique) dans `RTDB_URL` (fb.js). Paramètres → « Statut en ligne » affiche ✅ quand c'est bon.
+Sans RTDB : secours Firestore (battement 5 s, ≈ 12 s de précision).
