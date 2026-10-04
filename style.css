@@ -99,7 +99,7 @@ nav{view-transition-name:pbnav}::view-transition-group(pbnav){animation:none}
 /* v1.7 — stories */
 .sf{position:relative;width:min(92vw,calc(78vh*9/16));width:min(92vw,calc(78dvh*9/16));aspect-ratio:9/16;border-radius:22px;overflow:hidden;container-type:inline-size;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .sx{position:absolute;transform:translate(-50%,-50%);font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.65);text-align:center;max-width:90%;line-height:1.15;word-wrap:break-word;touch-action:none;user-select:none;cursor:grab}.sx.sel{outline:2px dashed #ffc400;outline-offset:6px}
-.sm{position:absolute;left:10px;top:52px;background:rgba(0,0,0,.45);color:#fff;border-radius:99px;padding:4px 12px;font-size:12px;display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 20px);z-index:2}.sm .ic{width:14px;height:14px}
+.smc{position:absolute;left:10px;top:52px;background:rgba(0,0,0,.45);color:#fff;border-radius:99px;padding:4px 12px;font-size:12px;display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 20px);z-index:2}.smc .ic{width:14px;height:14px}
 .spb{display:flex;gap:4px;position:absolute;top:10px;left:10px;right:10px;z-index:3}.spb i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}.spb i b{display:block;height:100%;background:#fff}
 .shd{position:absolute;top:18px;left:10px;right:10px;z-index:3;display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;text-shadow:0 1px 6px #000;font-size:14px}.shd .av{box-shadow:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;align-items:center}.sw2{width:28px;height:28px;border-radius:50%;border:2px solid #fff;cursor:pointer;display:inline-block}
@@ -193,3 +193,36 @@ textarea.in::-webkit-scrollbar,.comp textarea.in::-webkit-scrollbar{display:none
 .pmb{position:absolute;right:10px;bottom:10px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);z-index:2;transition:transform .15s,background .15s}.pmb:active{transform:scale(.9)}.pmb.on{background:var(--g);color:#201a08}.pmb .ic{width:18px;height:18px}
 .pmt{position:absolute;left:10px;bottom:14px;max-width:calc(100% - 66px);background:rgba(0,0,0,.5);color:#fff;border-radius:99px;padding:3px 10px 3px 8px;font-size:12px;display:flex;gap:5px;align-items:center;z-index:2;backdrop-filter:blur(6px)}.pmt .ic{width:13px;height:13px}.pmt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ex .pmi{position:absolute;right:7px;top:7px;color:#fff;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));line-height:0}.ex .pmi .ic{width:18px;height:18px}
+
+/* v2.8 */
+.srb{position:absolute;left:0;right:0;bottom:0;z-index:6;display:flex;gap:8px;align-items:center;padding:34px 12px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.62))}
+.srb input{flex:1;min-width:0;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.55);border-radius:99px;padding:11px 16px;color:#fff;font-size:16px;outline:none}.srb input::placeholder{color:rgba(255,255,255,.8)}
+.sst{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:700;padding:8px 12px;border-radius:99px;background:rgba(255,255,255,.16)}.sst.on{color:#ff3b5c}.sst .ic{width:24px;height:24px}
+.ov.stv #zl,.ov.stv #zr{bottom:84px!important}
+@media(max-width:819px){.ov.stv{padding:0;background:#000;place-items:stretch}.ov.stv>div{width:100%;height:100%}.ov.stv .sf{width:100vw;height:100vh;height:100dvh;aspect-ratio:auto;border-radius:0;box-shadow:none}
+ .ov.stv .spb{top:calc(10px + env(safe-area-inset-top))}.ov.stv .shd{top:calc(20px + env(safe-area-inset-top))}.ov.stv .smc{top:calc(62px + env(safe-area-inset-top))}}
+.srq{display:flex;gap:8px;align-items:center}.srt{width:34px;height:48px;object-fit:cover;border-radius:6px;flex:none}.srq>div{min-width:0}
+.net{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-90px);z-index:120;padding:8px 18px;border-radius:99px;font-weight:700;font-size:13px;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.2,.9,.2,1)}.net.on{transform:translate(-50%,0)}.net.off{background:#ff3b30}.net.ok{background:#34c759}
+.pbt{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:130;background:#201a08;color:#fff;padding:10px 16px;border-radius:99px;font-weight:600;font-size:14px;transition:.3s;max-width:90vw}.pbt.on{opacity:1;transform:translate(-50%,0)}
+
+/* v2.9 — photos du chat, réponse à une story, visionneuse plein écran */
+.b img{border:3px solid var(--y);box-sizing:border-box;border-radius:16px}.b.me img{border-color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.b .srt{opacity:1;min-height:0;width:64px;height:96px;max-height:none;object-fit:cover;border:2px solid var(--y);border-radius:12px;flex:none;cursor:zoom-in}.b.me .srt{border-color:#fff}
+.srq{display:flex;gap:10px;align-items:center;border:2px solid var(--y);border-left-width:5px;background:rgba(255,196,0,.14);border-radius:14px;padding:8px}.b.me .srq{border-color:#fff;border-left-color:#fff;background:rgba(255,255,255,.28)}
+.srq b{font-size:12px}.srq span{white-space:normal;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical}
+.ov.lbx{padding:0;background:#000;place-items:center}.lbx img{max-width:100vw;max-height:100vh;max-height:100dvh;width:auto;height:auto;object-fit:contain;touch-action:pinch-zoom;border-radius:0}
+.lbc{position:fixed;top:calc(12px + env(safe-area-inset-top));right:14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:grid;place-items:center}.lbo{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);color:#fff;background:rgba(255,255,255,.18);padding:8px 16px;border-radius:99px;font-weight:600;text-decoration:none}
+@media(max-width:819px){.lbx img{width:100vw;height:100vh;height:100dvh}}
+
+/* v2.9 : fix boutons .btn.sm (collision avec le chip musique des stories), champ + bouton alignés, plus de scintillement au retour */
+.sheet .row>input.in{flex:1;min-width:0;width:auto}
+.sheet .btn.sm{position:static}
+@media(hover:hover){.chat .card:hover,#cl.card:hover{transform:none;box-shadow:none}}
+@media(hover:none){.card:hover,.strip>div:hover,.hl:hover{transform:none}}
+
+/* v3.1 : suppression de messages, vue unique protégée */
+.b.dl{opacity:.65;font-style:italic;font-size:14px;display:flex;align-items:center;gap:6px}.b.dl .ic{width:15px;height:15px}
+.b.once small.ssn{display:flex;align-items:center;gap:4px;margin-top:4px;font-size:12px;color:#ff3b5c;font-weight:700}.b.once small.ssn .ic{width:14px;height:14px}
+.rxp button[data-d]{color:#ff3b5c}
+.ov.vo1{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}.ov.vo1 img{pointer-events:none;-webkit-user-drag:none}
+.ov.vo1 .vo1s{display:none;color:#fff;font-weight:700}.ov.vo1.hid .vo1b{display:none}.ov.vo1.hid .vo1s{display:block}
